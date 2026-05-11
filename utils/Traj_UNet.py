@@ -35,6 +35,7 @@ class Attention(nn.Module):
 
 class WideAndDeep(nn.Module):
     def __init__(self, embedding_dim=128, hidden_dim=256):  # Called with (self.ch * 4 [=512]) as embedding_dim
+        super().__init__()
 
         # Wide part (linear model for continuous attributes)
         self.wide_fc = nn.Linear(5, embedding_dim)  # (5, 512)
