@@ -34,18 +34,17 @@ class Attention(nn.Module):
 
 
 class WideAndDeep(nn.Module):
-    def __init__(self, embedding_dim=128, hidden_dim=256):
-        super(WideAndDeep, self).__init__()
+    def __init__(self, embedding_dim=128, hidden_dim=256):  # Called with (self.ch * 4 [=512]) as embedding_dim
 
         # Wide part (linear model for continuous attributes)
-        self.wide_fc = nn.Linear(5, embedding_dim)
+        self.wide_fc = nn.Linear(5, embedding_dim)  # (5, 512)
 
         # Deep part (neural network for categorical attributes)
-        self.depature_embedding = nn.Embedding(288, hidden_dim)
-        self.sid_embedding = nn.Embedding(257, hidden_dim)
-        self.eid_embedding = nn.Embedding(257, hidden_dim)
-        self.deep_fc1 = nn.Linear(hidden_dim*3, embedding_dim)
-        self.deep_fc2 = nn.Linear(embedding_dim, embedding_dim)
+        self.depature_embedding = nn.Embedding(288, hidden_dim)  # (288, 256)
+        self.sid_embedding = nn.Embedding(257, hidden_dim)  # (257, 256)
+        self.eid_embedding = nn.Embedding(257, hidden_dim)  # (257, 256)
+        self.deep_fc1 = nn.Linear(hidden_dim*3, embedding_dim)  # (768, 512)
+        self.deep_fc2 = nn.Linear(embedding_dim, embedding_dim)  # (512, 512)
 
     def forward(self, attr):
         # Continuous attributes
